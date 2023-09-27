@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LETS MAKE PRACTICE</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    
+<button id="allProductsButton">All Products</button>
+<button id="shoesButton">Shoes</button>
+<button id="clothesButton">Clothes</button>
+<button id="hatsButton">Hats</button>
+
+<h1>WELCOME TO MY E-STORE</h1>
+
+<p id="explanation">Write the name of the product to search box to find it</p>
+
+<input id="searchid" type="text" oninput="showProduct()">
+
+<div id="container"></div>
+
+
+<script>
+const products = [
+    { name: "Hat 1", category: "hat",price:"1000$",src: "images/hat1.jpg" },
+    { name: "Shoe 2", category: "shoe",price:"600$", src: "images/shoe2.jpg" },
+    { name: "Cloth 1", category: "cloth",price:"500$", src: "images/cloth1.jpg" },
+    { name: "Shoe 3", category: "shoe",price:"600$", src: "images/shoe3.jpg" },
+    { name: "Hat 2", category: "hat",price:"1000$",src: "images/hat2.jpg" },
+    { name: "Cloth 2", category: "cloth",price:"700$", src: "images/cloth2.jpg" },
+    { name: "Shoe 1", category: "shoe",price:"600$", src: "images/shoe1.jpeg" },
+];
+
+const container = document.getElementById("container");
+
+products.forEach(product => {
+    const newDiv = document.createElement('div');
+    newDiv.classList.add("divclass");
+
+    const newImage = document.createElement('img');
+    newImage.src = product.src;
+
+    const newP = document.createElement('p');
+    newP.innerHTML = "Name: " + product.name;
+
+    const newP2 = document.createElement('p');
+    newP2.innerHTML = "Price: " + product.price;
+
+    newDiv.appendChild(newImage);
+    newDiv.appendChild(newP);
+    newDiv.appendChild(newP2);
+
+    container.appendChild(newDiv);
+});
+
+// Butonları işlevsel hale getirme
+const allProductsButton = document.getElementById("allProductsButton");
+const shoesButton = document.getElementById("shoesButton");
+const clothesButton = document.getElementById("clothesButton");
+const hatsButton = document.getElementById("hatsButton");
+
+allProductsButton.addEventListener("click", () => {
+    container.innerHTML = ""; // Önceki ürünleri temizle
+    products.forEach(product => {
+        const newDiv = document.createElement('div');
+        newDiv.classList.add("divclass");
+        const newImage = document.createElement('img');
+        const newP = document.createElement('p');
+        newP.classList.add("adi");
+        const newP2 = document.createElement('p');
+        newP2.classList.add("kategori");
+        newImage.src = product.src;
+        newP.innerHTML = "Name: " + product.name;
+        newP2.innerHTML = "Price: " + product.price;
+        newDiv.appendChild(newImage);
+        newDiv.appendChild(newP);
+        newDiv.appendChild(newP2);
+        container.appendChild(newDiv);
+    });
+});
+
+shoesButton.addEventListener("click", () => {
+    // Ayakkabıları filtrele ve göster
+    const shoes = products.filter(product => product.category === "shoe");
+    showProducts(shoes);
+});
+
+clothesButton.addEventListener("click", () => {
+    // Giysileri filtrele ve göster
+    const clothes = products.filter(product => product.category === "cloth");
+    showProducts(clothes);
+});
+
+hatsButton.addEventListener("click", () => {
+    // Şapkaları filtrele ve göster
+    const hats = products.filter(product => product.category === "hat");
+    showProducts(hats);
+});
+
+function showProducts(productsToShow) {
+    container.innerHTML = ""; // Önceki ürünleri temizle
+    productsToShow.forEach(product => {
+        const newDiv = document.createElement('div');
+        newDiv.classList.add("divclass");
+        const newImage = document.createElement('img');
+        const newP = document.createElement('p');
+        const newP2 = document.createElement('p');
+        newImage.src = product.src;
+        newP.innerHTML = "Name: " + product.name;
+        newP2.innerHTML = "Price: " + product.price;
+        newDiv.appendChild(newImage);
+        newDiv.appendChild(newP);
+        newDiv.appendChild(newP2);
+        container.appendChild(newDiv);
+    });
+}
+
+function showProduct() {
+
+document.getElementById("container").innerHTML = "";
+
+const input = document.getElementById("searchid").value;
+
+const filteredproducts = products.filter(product => product.name.includes(input));
+  
+      filteredproducts.forEach(product => {
+          
+          const newDiv = document.createElement('div');
+          newDiv.classList.add("divclass");
+          let newImage = document.createElement('img');
+          const newP = document.createElement('p');
+          const newP2 = document.createElement('p');
+          newImage.src = product.src;
+          newP.innerHTML = "Name: " + product.name;
+          newP2.innerHTML = "Price: " + product.price;
+          document.getElementById("container").appendChild(newDiv);
+          newDiv.appendChild(newImage);
+          newDiv.appendChild(newP);
+          newDiv.appendChild(newP2);
+
+      });
+
+    
+}
+
+
+
+</script>
+</body>
+</html>
